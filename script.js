@@ -2,30 +2,33 @@ let isNum1 = true;
 let isOperator = false;
 let isNum2 = false;
 
-let num1 = 0;
-let num2 = 0;
-let operator = '';
+const num1Arr = [0];
+const num2Arr = [];
 
+const num1 = num1Arr.join('');
+const num2 = num2Arr.join('');
+const operator = '';
 
 const firstNumButtons = document.querySelectorAll('.number')
 firstNumButtons.forEach(button => {
     button.addEventListener('click', function(){
         if(isNum1 === true){
         const number = parseInt(button.dataset.number);
-        num1 = number;
-        console.log('num1: '+num1);
+        num1Arr.push(number);
+        console.log('num1Arr: '+num1Arr);
         isOperator = true;
         }
     })
 })
+
 
 const secondNumButtons = document.querySelectorAll('.number');
 secondNumButtons.forEach(button => {
     button.addEventListener('click', function(){
         if (isNum2 === true){
         const number = parseInt(button.dataset.number);
-        num2 = number;
-        console.log('num2: '+num2);
+        num2Arr.push(number);
+        console.log('num2Arr: '+num2Arr);
         isOperator = false;
         }
     })
@@ -44,8 +47,6 @@ operatorButtons.forEach(button => {
         }
     })
 })
-
-console.log(operate(operator, num1, num2));
 
 
 function operate(operator, num1, num2){
