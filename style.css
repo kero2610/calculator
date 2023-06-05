@@ -12,12 +12,29 @@ body{
     width: 300px;
     height: 500px;
     border: 1px solid black;
+    border-radius: 10px;
 
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.display{
+    width: 90%;
+    height: 100px;
+
+    border: 1px solid black;
+    border-radius: 10px;
+
+    text-align:end;
+    font-size: 60px;
 }
 
 button{
     width: 60px;
     height: 60px;
+    border-radius: 10px;
+
+    font-size: 25px;
 }

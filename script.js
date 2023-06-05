@@ -1,65 +1,79 @@
-let isNum1 = true;
-let isOperator = false;
-let isNum2 = false;
+const numbers = document.querySelectorAll('.number');
+const display = document.querySelector('.display');
+const operators = document.querySelectorAll('.operator');
+const equal = document.querySelector('.equal');
+const clear = document.querySelector('.clear');
 
-const num1Arr = [0];
-const num2Arr = [];
+let firstNum = '';
+let isFirstNum = false;
+let secondNum = '';
+let isSecondNum = false;
+let operator = '';
+let result = 0;
 
-const num1 = num1Arr.join('');
-const num2 = num2Arr.join('');
-const operator = '';
 
-const firstNumButtons = document.querySelectorAll('.number')
-firstNumButtons.forEach(button => {
-    button.addEventListener('click', function(){
-        if(isNum1 === true){
-        const number = parseInt(button.dataset.number);
-        num1Arr.push(number);
-        console.log('num1Arr: '+num1Arr);
-        isOperator = true;
+numbers.forEach(number => {
+    number.addEventListener('click', () => {
+        let numberValue = number.value;
+        console.log(numberValue);
+        if (isFirstNum === false) {
+            getFirstNum(numberValue);
+        }
+        if (isSecondNum === false) {
+            getSecondNum(numberValue)
         }
     })
 })
 
+function getFirstNum(num) {
+    display.textContent = '';
+    firstNum += num;
+    display.textContent = firstNum;
+    firstNum = +firstNum;
+}
 
-const secondNumButtons = document.querySelectorAll('.number');
-secondNumButtons.forEach(button => {
-    button.addEventListener('click', function(){
-        if (isNum2 === true){
-        const number = parseInt(button.dataset.number);
-        num2Arr.push(number);
-        console.log('num2Arr: '+num2Arr);
-        isOperator = false;
-        }
-    })
-})
-
-
-const operatorButtons = document.querySelectorAll('.operator');
-operatorButtons.forEach(button => {
-    button.addEventListener('click', function(){
-        if (isOperator === true){
-        const operators = button.dataset.operator;
-        operator = operators;
-        console.log('operator: '+operator);
-        isNum1 = false;
-        isNum2 = true;
-        }
-    })
-})
-
-
-function operate(operator, num1, num2){
-    if (operator === '+'){
-        return num1 + num2;
-    }
-    else if (operator === '-'){
-        return num1 - num2;
-    }
-    else if (operator === '*'){
-        return num1 * num2;
-    }
-    else if (operator === '/'){
-        return num1 / num2;
+function getSecondNum(num) {
+    if (firstNum != '' && operator != '') {
+        secondNum += num;
+        display.textContent = secondNum;
+        secondNum = +secondNum;
     }
 }
+
+function getOperator(){
+    operators.forEach(symbol => {
+        symbol.addEventListener('click', () => {
+            operator = symbol.value;
+            console.log(operator);
+            isFirstNum = true;
+        })
+    })
+}
+getOperator();
+
+equal.addEventListener('click', () =>{
+    display.textContent = '';
+    if (operator === '+'){
+        result = firstNum+secondNum;
+    } else if (operator === '-'){
+        result = firstNum-secondNum;
+    } else if (operator === '*'){
+        result = firstNum*secondNum;
+    } else if (operator === '/'){
+        result = firstNum/secondNum;
+    }
+    display.textContent = result;
+    firstNum = result;
+    secondNum = '';
+})
+
+clear.addEventListener('click', () =>{
+    display.textContent = 0;
+
+    firstNum = '';
+    isFirstNum = false;
+    secondNum = '';
+    isSecondNum = false;
+    operator = '';
+    result = 0;
+})
