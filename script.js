@@ -1,4 +1,6 @@
+const buttons = document.querySelectorAll('button');
 const numbers = document.querySelectorAll('.number');
+const smallDisplay = document.querySelector('.smallDisplay');
 const display = document.querySelector('.display');
 const operators = document.querySelectorAll('.operator');
 const equal = document.querySelector('.equal');
@@ -10,12 +12,17 @@ let secondNum = '';
 let isSecondNum = false;
 let operator = '';
 let result = 0;
+let smallDisplayArr = [];
+
+buttons.forEach(button => {
+    button.addEventListener('click', () => {
+    })
+})
 
 
 numbers.forEach(number => {
     number.addEventListener('click', () => {
         let numberValue = number.value;
-        console.log(numberValue);
         if (isFirstNum === false) {
             getFirstNum(numberValue);
         }
@@ -40,35 +47,51 @@ function getSecondNum(num) {
     }
 }
 
-function getOperator(){
+function getOperator() {
     operators.forEach(symbol => {
         symbol.addEventListener('click', () => {
             operator = symbol.value;
-            console.log(operator);
+            if (secondNum) {
+                if (operator === '+') {
+                    result = firstNum + secondNum;
+                } else if (operator === '-') {
+                    result = firstNum - secondNum;
+                } else if (operator === '*') {
+                    result = firstNum * secondNum;
+                } else if (operator === '/') {
+                    result = firstNum / secondNum;
+                }
+            }
             isFirstNum = true;
+            display.textContent = result;
+            smallDisplay.textContent = `${firstNum}${operator}`;
+            firstNum = result;
         })
     })
 }
 getOperator();
 
-equal.addEventListener('click', () =>{
+equal.addEventListener('click', () => {
     display.textContent = '';
-    if (operator === '+'){
-        result = firstNum+secondNum;
-    } else if (operator === '-'){
-        result = firstNum-secondNum;
-    } else if (operator === '*'){
-        result = firstNum*secondNum;
-    } else if (operator === '/'){
-        result = firstNum/secondNum;
+    if (operator === '+') {
+        result = firstNum + secondNum;
+    } else if (operator === '-') {
+        result = firstNum - secondNum;
+    } else if (operator === '*') {
+        result = firstNum * secondNum;
+    } else if (operator === '/') {
+        result = firstNum / secondNum;
     }
     display.textContent = result;
+    smallDisplay.textContent = `${firstNum}${operator}${secondNum}=`;
     firstNum = result;
     secondNum = '';
 })
 
-clear.addEventListener('click', () =>{
+clear.addEventListener('click', () => {
     display.textContent = 0;
+    smallDisplay.textContent = '';
+    smallDisplayArr = [];
 
     firstNum = '';
     isFirstNum = false;
