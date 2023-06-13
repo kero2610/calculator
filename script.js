@@ -116,7 +116,7 @@ function resetAll() {
     secondNumber = '';
     operator = '';
     result = '';
-    displayValue = '';
+    displayValue = '0';
     isFirstNumber = true;
 
     display.textContent = 0;
