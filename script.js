@@ -12,7 +12,7 @@ let firstNumber = '';
 let secondNumber = '';
 let operator = '';
 let result = '';
-let displayValue = '';
+let displayValue = '0';
 let isFirstNumber = true;
 
 
@@ -33,11 +33,12 @@ function saveNumber(number) {
     if (isFirstNumber) {
         if (display.textContent === '0' && number === '0') {
             return;
-        } else {
-            displayValue += number;
-            display.textContent = displayValue;
-            firstNumber = displayValue;
+        } else if (displayValue === '0'){
+            displayValue = '';
         }
+        displayValue += number;
+        display.textContent = displayValue;
+        firstNumber = displayValue;
     } else if (!isFirstNumber) {
         displayValue += number;
         display.textContent = displayValue;
