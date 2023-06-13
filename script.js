@@ -26,8 +26,8 @@ operators.forEach(symbol => {
 
 equal.addEventListener('click', () => operate(firstNumber, secondNumber, operator));
 clear.addEventListener('click', () => resetAll());
-backspace.addEventListener('click', ()=> deleteNumber());
-point.addEventListener('click', ()=> savePoint());
+backspace.addEventListener('click', () => deleteNumber());
+point.addEventListener('click', () => savePoint());
 
 function saveNumber(number) {
     if (isFirstNumber) {
@@ -43,7 +43,7 @@ function saveNumber(number) {
 
 
 function saveOperator(symbol) {
-    if (firstNumber && secondNumber && operator){
+    if (firstNumber && secondNumber && operator && !smallDisplay.textContent.includes('=')) {
         operate(firstNumber, secondNumber, operator);
     }
     isFirstNumber = false;
@@ -52,8 +52,8 @@ function saveOperator(symbol) {
     smallDisplay.textContent = `${firstNumber}${operator}`;
 }
 
-function savePoint(){
-    if (!displayValue.includes('.')){
+function savePoint() {
+    if (!displayValue.includes('.')) {
         displayValue += '.';
         display.textContent = displayValue;
     } return;
@@ -76,7 +76,7 @@ function divide(a, b) {
     return a / b;
 }
 
-function modulus(a,b) {
+function modulus(a, b) {
     return a % b;
 }
 
@@ -98,7 +98,7 @@ function operate(a, b, operator) {
     display.textContent = displayValue;
     smallDisplay.textContent = `${firstNumber}${operator}${secondNumber}=`;
     firstNumber = result;
-    secondNumber = '';
+    //secondNumber = '';
 }
 
 function resetAll() {
@@ -113,7 +113,10 @@ function resetAll() {
     smallDisplay.textContent = '';
 }
 
-function deleteNumber(){
-    displayValue = displayValue.toString().slice(0,-1);
-    display.textContent = displayValue;
+function deleteNumber() {
+    if (!result){
+        displayValue = displayValue.toString().slice(0, -1);
+        display.textContent = displayValue;
+    } smallDisplay.textContent = '';
+    operator = '';
 }
