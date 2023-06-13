@@ -7,13 +7,14 @@ const clear = document.querySelector('.clear');
 const backspace = document.querySelector('.delete');
 const point = document.querySelector('.point');
 
-
 let firstNumber = '';
 let secondNumber = '';
 let operator = '';
 let result = '';
 let displayValue = '0';
 let isFirstNumber = true;
+
+window.addEventListener('keydown', keyboardInput)
 
 numbers.forEach(number => {
     number.addEventListener('click', () => saveNumber(number.value))
@@ -145,4 +146,20 @@ function deleteNumber() {
 
 function roundAccurately(num, places) {
     return parseFloat(Math.round(num + 'e' + places) + 'e-' + places);
+}
+
+function keyboardInput(e){
+    if (e.key >= 0 && e.key <= 9){
+        saveNumber(e.key);
+    } if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/'){
+        saveOperator(e.key);
+    } if (e.key === '.') {
+        savePoint();
+    } if (e.key === '=' || e.key === 'Enter'){
+        operate(firstNumber, secondNumber, operator);
+    } if (e.key === 'Backspace') {
+        deleteNumber();
+    } if (e.key === 'Escape') {
+        resetAll();
+    }
 }
