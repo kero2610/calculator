@@ -15,7 +15,6 @@ let result = '';
 let displayValue = '0';
 let isFirstNumber = true;
 
-
 numbers.forEach(number => {
     number.addEventListener('click', () => saveNumber(number.value))
 });
@@ -29,19 +28,31 @@ clear.addEventListener('click', () => resetAll());
 backspace.addEventListener('click', () => deleteNumber());
 point.addEventListener('click', () => savePoint());
 
+function updateDisplay() {
+    display.textContent = displayValue;
+    if(displayValue.length > 9) {
+        display.textContent = displayValue.substring(0, 9);
+    }
+}
+updateDisplay();
+  
+
 function saveNumber(number) {
     if (isFirstNumber) {
         if (display.textContent === '0' && number === '0') {
             return;
-        } else if (displayValue === '0'){
+        } else if (displayValue === '0') {
             displayValue = '';
         }
         displayValue += number;
-        display.textContent = displayValue;
+        updateDisplay();
         firstNumber = displayValue;
     } else if (!isFirstNumber) {
+        if (displayValue === '0') {
+            displayValue = '';
+        }
         displayValue += number;
-        display.textContent = displayValue;
+        updateDisplay();
         secondNumber = displayValue;
     }
 }
@@ -50,9 +61,11 @@ function saveNumber(number) {
 function saveOperator(symbol) {
     if (firstNumber && secondNumber && operator && !smallDisplay.textContent.includes('=')) {
         operate(firstNumber, secondNumber, operator);
+    } else if (!firstNumber){
+        return;
     }
     isFirstNumber = false;
-    displayValue = '';
+    displayValue = '0';
     operator = symbol;
     smallDisplay.textContent = `${firstNumber}${operator}`;
 }
@@ -60,7 +73,7 @@ function saveOperator(symbol) {
 function savePoint() {
     if (!displayValue.includes('.')) {
         displayValue += '.';
-        display.textContent = displayValue;
+        updateDisplay();
     } return;
 }
 
@@ -104,11 +117,10 @@ function operate(a, b, operator) {
     } else if (operator === '%') {
         result = modulus(a, b);
     }
-    displayValue = result;
-    display.textContent = displayValue;
+    displayValue = roundAccurately(result, 15).toString();;
+    updateDisplay();
     smallDisplay.textContent = `${firstNumber}${operator}${secondNumber}=`;
     firstNumber = result;
-    //secondNumber = '';
 }
 
 function resetAll() {
@@ -126,7 +138,11 @@ function resetAll() {
 function deleteNumber() {
     if (!result) {
         displayValue = displayValue.toString().slice(0, -1);
-        display.textContent = displayValue;
+        updateDisplay();
     } smallDisplay.textContent = '';
     operator = '';
+}
+
+function roundAccurately(num, places) {
+    return parseFloat(Math.round(num + 'e' + places) + 'e-' + places);
 }
