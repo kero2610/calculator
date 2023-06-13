@@ -81,6 +81,10 @@ function modulus(a, b) {
 }
 
 function operate(a, b, operator) {
+    if(!a || !b || !operator){
+        return;
+    }
+
     a = Number(a);
     b = Number(b);
     if (operator === '+') {
