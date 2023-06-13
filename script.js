@@ -43,7 +43,7 @@ function saveNumber(number) {
 
 
 function saveOperator(symbol) {
-    if (!isFirstNumber){
+    if (firstNumber && secondNumber && operator){
         operate(firstNumber, secondNumber, operator);
     }
     isFirstNumber = false;
@@ -98,6 +98,7 @@ function operate(a, b, operator) {
     display.textContent = displayValue;
     smallDisplay.textContent = `${firstNumber}${operator}${secondNumber}=`;
     firstNumber = result;
+    secondNumber = '';
 }
 
 function resetAll() {
