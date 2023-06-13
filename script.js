@@ -31,9 +31,13 @@ point.addEventListener('click', () => savePoint());
 
 function saveNumber(number) {
     if (isFirstNumber) {
-        displayValue += number;
-        display.textContent = displayValue;
-        firstNumber = displayValue;
+        if (display.textContent === '0' && number === '0') {
+            return;
+        } else {
+            displayValue += number;
+            display.textContent = displayValue;
+            firstNumber = displayValue;
+        }
     } else if (!isFirstNumber) {
         displayValue += number;
         display.textContent = displayValue;
