@@ -73,6 +73,10 @@ function divide(a, b) {
     return a / b;
 }
 
+function modulus(a,b) {
+    return a % b;
+}
+
 function operate(a, b, operator) {
     a = Number(a);
     b = Number(b);
@@ -84,6 +88,8 @@ function operate(a, b, operator) {
         result = multiply(a, b);
     } else if (operator === '/') {
         result = divide(a, b);
+    } else if (operator === '%') {
+        result = modulus(a, b);
     }
     displayValue = result;
     display.textContent = displayValue;
