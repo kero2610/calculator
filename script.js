@@ -73,7 +73,9 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    return a / b;
+    if (b === 0) {
+        return 'NaN';
+    } return a / b;
 }
 
 function modulus(a, b) {
@@ -81,10 +83,9 @@ function modulus(a, b) {
 }
 
 function operate(a, b, operator) {
-    if(!a || !b || !operator){
+    if (!a || !b || !operator) {
         return;
     }
-
     a = Number(a);
     b = Number(b);
     if (operator === '+') {
@@ -118,7 +119,7 @@ function resetAll() {
 }
 
 function deleteNumber() {
-    if (!result){
+    if (!result) {
         displayValue = displayValue.toString().slice(0, -1);
         display.textContent = displayValue;
     } smallDisplay.textContent = '';
