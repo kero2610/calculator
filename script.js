@@ -43,6 +43,9 @@ function saveNumber(number) {
 
 
 function saveOperator(symbol) {
+    if (!isFirstNumber){
+        operate(firstNumber, secondNumber, operator);
+    }
     isFirstNumber = false;
     displayValue = '';
     operator = symbol;
