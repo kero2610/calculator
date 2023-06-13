@@ -5,6 +5,7 @@ const operators = document.querySelectorAll('.operator');
 const equal = document.querySelector('.equal');
 const clear = document.querySelector('.clear');
 const backspace = document.querySelector('.delete');
+const point = document.querySelector('.point');
 
 
 let firstNumber = '';
@@ -24,10 +25,9 @@ operators.forEach(symbol => {
 });
 
 equal.addEventListener('click', () => operate(firstNumber, secondNumber, operator));
-
 clear.addEventListener('click', () => resetAll());
-
 backspace.addEventListener('click', ()=> deleteNumber());
+point.addEventListener('click', ()=> savePoint());
 
 function saveNumber(number) {
     if (isFirstNumber) {
@@ -49,6 +49,13 @@ function saveOperator(symbol) {
     smallDisplay.textContent = `${firstNumber}${operator}`;
 }
 
+function savePoint(){
+    if (!displayValue.includes('.')){
+        displayValue += '.';
+        display.textContent = displayValue;
+    } return;
+}
+
 
 function add(a, b) {
     return a + b;
@@ -67,8 +74,8 @@ function divide(a, b) {
 }
 
 function operate(a, b, operator) {
-    a = parseInt(a);
-    b = parseInt(b);
+    a = Number(a);
+    b = Number(b);
     if (operator === '+') {
         result = add(a, b);
     } else if (operator === '-') {
