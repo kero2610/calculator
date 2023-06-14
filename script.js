@@ -31,12 +31,12 @@ point.addEventListener('click', () => savePoint());
 
 function updateDisplay() {
     display.textContent = displayValue;
-    if(displayValue.length > 9) {
+    if (displayValue.length > 9) {
         display.textContent = displayValue.substring(0, 9);
     }
 }
 updateDisplay();
-  
+
 
 function saveNumber(number) {
     if (isFirstNumber) {
@@ -62,8 +62,8 @@ function saveNumber(number) {
 function saveOperator(symbol) {
     if (firstNumber && secondNumber && operator && !smallDisplay.textContent.includes('=')) {
         operate(firstNumber, secondNumber, operator);
-    } else if (!firstNumber){
-        return;
+    } else if (!firstNumber) {
+        firstNumber = '0';
     }
     isFirstNumber = false;
     displayValue = '0';
@@ -137,28 +137,29 @@ function resetAll() {
 }
 
 function deleteNumber() {
-        if (smallDisplay.textContent.includes('=')){
-            smallDisplay.textContent = '';
-            operator = '';
-        } else if (result && !smallDisplay.textContent){
-            return;
-        }
+    if (smallDisplay.textContent.includes('=')) {
+        smallDisplay.textContent = '';
+        operator = '';
+    } else if (result !== '' && !smallDisplay.textContent) {
+        return;
+    } else {
         displayValue = displayValue.toString().slice(0, -1);
         updateDisplay();
+    }
 }
 
 function roundAccurately(num, places) {
     return parseFloat(Math.round(num + 'e' + places) + 'e-' + places);
 }
 
-function keyboardInput(e){
-    if (e.key >= 0 && e.key <= 9){
+function keyboardInput(e) {
+    if (e.key >= 0 && e.key <= 9) {
         saveNumber(e.key);
-    } if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/'){
+    } if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/') {
         saveOperator(e.key);
     } if (e.key === '.') {
         savePoint();
-    } if (e.key === '=' || e.key === 'Enter'){
+    } if (e.key === '=' || e.key === 'Enter') {
         operate(firstNumber, secondNumber, operator);
     } if (e.key === 'Backspace') {
         deleteNumber();
