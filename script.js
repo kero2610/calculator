@@ -137,11 +137,14 @@ function resetAll() {
 }
 
 function deleteNumber() {
-    if (!result) {
+        if (smallDisplay.textContent.includes('=')){
+            smallDisplay.textContent = '';
+            operator = '';
+        } else if (result && !smallDisplay.textContent){
+            return;
+        }
         displayValue = displayValue.toString().slice(0, -1);
         updateDisplay();
-    } smallDisplay.textContent = '';
-    operator = '';
 }
 
 function roundAccurately(num, places) {
