@@ -60,8 +60,9 @@ function saveNumber(number) {
 
 
 function saveOperator(symbol) {
-    if (firstNumber && secondNumber && operator && !smallDisplay.textContent.includes('=')) {
+    if (firstNumber && secondNumber && operator && !smallDisplay.textContent.includes('=') && display.textContent !== '') {
         operate(firstNumber, secondNumber, operator);
+        secondNumber = '';
     } else if (!firstNumber) {
         firstNumber = '0';
     }
