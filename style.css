@@ -8,6 +8,7 @@ body{
     height: 100%;
     overflow: hidden;
     background-color: #555558;
+    margin-bottom: 100%;
 
     display: flex;
     justify-content: center;
